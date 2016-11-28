@@ -19,7 +19,7 @@ configure_file (
   ${CMAKE_CURRENT_BINARY_DIR}/config.h)
 
 google_library(common_blocking_queue
-  USES_CERES
+  USES_GLOG
   HDRS
     blocking_queue.h
   DEPENDS
@@ -45,7 +45,7 @@ google_library(common_config
 )
 
 google_library(common_configuration_file_resolver
-  USES_CERES
+  USES_GLOG
   SRCS
     configuration_file_resolver.cc
   HDRS
@@ -66,13 +66,18 @@ google_library(common_fixed_ratio_sampler
 )
 
 google_library(common_histogram
-  USES_CERES
+  USES_GLOG
   SRCS
     histogram.cc
   HDRS
     histogram.h
   DEPENDS
     common_port
+)
+
+google_library(common_interval
+  HDRS
+    interval.h
 )
 
 google_library(common_lua
@@ -82,7 +87,7 @@ google_library(common_lua
 )
 
 google_library(common_lua_parameter_dictionary
-  USES_CERES
+  USES_GLOG
   SRCS
     lua_parameter_dictionary.cc
   HDRS
@@ -93,7 +98,7 @@ google_library(common_lua_parameter_dictionary
 )
 
 google_library(common_lua_parameter_dictionary_test_helpers
-  USES_CERES
+  USES_GLOG
   HDRS
     lua_parameter_dictionary_test_helpers.h
   DEPENDS
@@ -123,15 +128,6 @@ google_library(common_mutex
     common_time
 )
 
-google_library(common_ordered_multi_queue
-  HDRS
-    ordered_multi_queue.h
-  DEPENDS
-    common_blocking_queue
-    common_make_unique
-    common_port
-)
-
 google_library(common_port
   USES_BOOST
   HDRS
@@ -148,7 +144,7 @@ google_library(common_rate_timer
 )
 
 google_library(common_thread_pool
-  USES_CERES
+  USES_GLOG
   SRCS
     thread_pool.cc
   HDRS
@@ -175,6 +171,16 @@ google_test(common_blocking_queue_test
     common_time
 )
 
+google_test(common_configuration_files_test
+  SRCS
+    configuration_files_test.cc
+  DEPENDS
+    common_config
+    common_configuration_file_resolver
+    common_lua_parameter_dictionary
+    mapping_map_builder
+)
+
 google_test(common_fixed_ratio_sampler_test
   SRCS
     fixed_ratio_sampler_test.cc
@@ -196,14 +202,6 @@ google_test(common_math_test
     math_test.cc
   DEPENDS
     common_math
-)
-
-google_test(common_ordered_multi_queue_test
-  SRCS
-    ordered_multi_queue_test.cc
-  DEPENDS
-    common_make_unique
-    common_ordered_multi_queue
 )
 
 google_test(common_rate_timer_test

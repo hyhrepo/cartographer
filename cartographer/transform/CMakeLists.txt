@@ -15,8 +15,8 @@
 add_subdirectory("proto")
 
 google_library(transform_rigid_transform
-  USES_CERES
   USES_EIGEN
+  USES_GLOG
   SRCS
     rigid_transform.cc
   HDRS
@@ -49,8 +49,8 @@ google_library(transform_transform
 )
 
 google_library(transform_transform_interpolation_buffer
-  USES_CERES
   USES_EIGEN
+  USES_GLOG
   SRCS
     transform_interpolation_buffer.cc
   HDRS
@@ -58,7 +58,7 @@ google_library(transform_transform_interpolation_buffer
   DEPENDS
     common_make_unique
     common_time
-    proto_trajectory
+    mapping_proto_trajectory
     transform_rigid_transform
     transform_transform
 )

@@ -28,8 +28,8 @@ google_library(mapping_2d_global_trajectory_builder
 )
 
 google_library(mapping_2d_laser_fan_inserter
-  USES_CERES
   USES_EIGEN
+  USES_GLOG
   SRCS
     laser_fan_inserter.cc
   HDRS
@@ -54,13 +54,14 @@ google_library(mapping_2d_local_trajectory_builder
     common_lua_parameter_dictionary
     common_make_unique
     common_time
-    kalman_filter_pose_tracker
     mapping_2d_proto_local_trajectory_builder_options
     mapping_2d_scan_matching_ceres_scan_matcher
     mapping_2d_scan_matching_real_time_correlative_scan_matcher
     mapping_2d_submaps
     mapping_3d_motion_filter
     mapping_global_trajectory_builder_interface
+    mapping_imu_tracker
+    mapping_odometry_state_tracker
     sensor_configuration
     sensor_laser
     sensor_voxel_filter
@@ -68,8 +69,8 @@ google_library(mapping_2d_local_trajectory_builder
 )
 
 google_library(mapping_2d_map_limits
-  USES_CERES
   USES_EIGEN
+  USES_GLOG
   HDRS
     map_limits.h
   DEPENDS
@@ -83,7 +84,7 @@ google_library(mapping_2d_map_limits
 )
 
 google_library(mapping_2d_probability_grid
-  USES_CERES
+  USES_GLOG
   HDRS
     probability_grid.h
   DEPENDS
@@ -108,8 +109,8 @@ google_library(mapping_2d_ray_casting
 )
 
 google_library(mapping_2d_sparse_pose_graph
-  USES_CERES
   USES_EIGEN
+  USES_GLOG
   SRCS
     sparse_pose_graph.cc
   HDRS
@@ -118,6 +119,7 @@ google_library(mapping_2d_sparse_pose_graph
     common_fixed_ratio_sampler
     common_make_unique
     common_math
+    common_mutex
     common_thread_pool
     common_time
     kalman_filter_pose_tracker
@@ -131,12 +133,13 @@ google_library(mapping_2d_sparse_pose_graph
     sensor_compressed_point_cloud
     sensor_point_cloud
     sensor_voxel_filter
+    transform_rigid_transform
     transform_transform
 )
 
 google_library(mapping_2d_submaps
-  USES_CERES
   USES_EIGEN
+  USES_GLOG
   USES_WEBP
   SRCS
     submaps.cc
@@ -150,7 +153,7 @@ google_library(mapping_2d_submaps
     mapping_2d_map_limits
     mapping_2d_probability_grid
     mapping_2d_proto_submaps_options
-    mapping_proto_submaps
+    mapping_proto_submap_visualization
     mapping_submaps
     mapping_trajectory_node
     sensor_laser
@@ -158,8 +161,8 @@ google_library(mapping_2d_submaps
 )
 
 google_library(mapping_2d_xy_index
-  USES_CERES
   USES_EIGEN
+  USES_GLOG
   HDRS
     xy_index.h
   DEPENDS
